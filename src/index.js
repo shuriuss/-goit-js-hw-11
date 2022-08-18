@@ -10,6 +10,7 @@ const form = document.querySelector('#search-form');
 form.addEventListener('submit', handler);
 const gallery = form.nextElementSibling;
 const loadMore = document.querySelector('.load-more');
+const load = loadMore.parentNode;
 loadMore.addEventListener('click', handlerMore);
 
 function handler(e) {
@@ -19,32 +20,38 @@ function handler(e) {
   gallery.innerHTML = '';
   request = e.target.elements.searchQuery.value;
 
-  search(request, page).then(response => {
-    const data = response.data.hits;
-    if (data.length === 0) {
-      Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-      return;
-    }
-    data.forEach(element => {
-      render(element);
+  search(request, page)
+    .then(response => {
+      const data = response.data.hits;
+      if (data.length === 0) {
+        Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+        return;
+      }
+      data.forEach(element => {
+        render(element);
+        loadMore.classList.remove('is-hidden');
+        load.classList.remove('is-hidden');
+      });
+    })
+    .catch(error => {
+      console.log(error);
     });
-  }).catch(error => {
-    console.log(error);
-  })
- 
-  loadMore.classList.remove('is-hidden')
+
   // e.target.elements.searchQuery.value = '';
 }
 
 function handlerMore() {
   page += 1;
   search(request, page).then(response => {
-    if (page === response.data.totalHits/40) {
+    if (page === response.data.totalHits / 40) {
       Notify.failure(
         "We're sorry, but you've reached the end of search results."
       );
+      loadMore.classList.add('is-hidden');
+      load.classList.add('is-hidden');
+
       retern;
     }
 
