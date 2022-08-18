@@ -78,8 +78,7 @@ function render({
   comments,
   downloads,
 }) {
-  // gallery.innerHTML =''
-  const markup = `<a href="${largeImageURL}">
+    const markup = `<a href="${largeImageURL}">
   <div class="photo-card">
     <img src="${webformatURL}" alt="${tags}" loading="lazy" />
     <div class="info">
@@ -101,10 +100,3 @@ function render({
   gallery.insertAdjacentHTML('beforeend', markup);
 }
 
-// const galler = new SimpleLightbox('.gallery a', {
-//   captions: true,
-//   captionsData: 'alt',
-//   captionPosition: 'bottom',
-//   captionDelay: 250,
-//   close: true,
-// });
