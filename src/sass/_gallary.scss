@@ -10,7 +10,19 @@
     padding: 0;
 }
 
-
+.search-form {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 70px;
+    background-color:blueviolet;
+}
 
 .is-hidden {
   visibility: hidden;
@@ -57,4 +69,23 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+
+.load {
+  display: flex;
+  margin: 30px auto;
+  color: #fafafa;
+  background-color: blueviolet;
+  justify-content: center;
+  // height: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+.load-more {
+  display: block;
+  padding: 5px;
+  background-radius: 5px;
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+// import SimpleLightbox from 'simplelightbox';
+// import 'simplelightbox/dist/simple-lightbox.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let request = '';
@@ -30,7 +30,10 @@ function handler(e) {
     data.forEach(element => {
       render(element);
     });
-  });
+  }).catch(error => {
+    console.log(error);
+  })
+ 
   loadMore.classList.remove('is-hidden')
   // e.target.elements.searchQuery.value = '';
 }
@@ -38,7 +41,7 @@ function handler(e) {
 function handlerMore() {
   page += 1;
   search(request, page).then(response => {
-    if (page === response.data.totalHits) {
+    if (page === response.data.totalHits/40) {
       Notify.failure(
         "We're sorry, but you've reached the end of search results."
       );
@@ -54,7 +57,7 @@ function handlerMore() {
 
 async function search(request, page) {
   const API_KEY = '29337192-6d69f3453e5b53e32a13fad69';
-  const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${request}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=5`;
+  const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${request}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`;
   const response = await axios.get(URL);
   return response;
 }
